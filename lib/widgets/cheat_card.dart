@@ -1,7 +1,9 @@
+import 'package:cheatsvalhiem/models/spawnable_model.dart';
 import 'package:flutter/material.dart';
 
 class CheatCard extends StatelessWidget {
-  const CheatCard({Key? key}) : super(key: key);
+  final Spawnable spawnable;
+  const CheatCard({Key? key, required this.spawnable}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +23,16 @@ class CheatCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'wood',
+                    spawnable.itemName,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
                   ),
                   Text(
-                    'spawn wood 50',
+                    'Spawn ${spawnable.itemName} ${spawnable.quantity}',
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
                       color: Colors.grey,
@@ -38,8 +42,15 @@ class CheatCard extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
+                  // Text(
+                  //   'Spawns ${spawnable.quantity} ${spawnable.quantity > 1?"pieces":"piece"} of ${spawnable.itemName}',
+                  //   style: TextStyle(
+                  //     fontSize: 16,
+                  //   ),
+                  // ),
+
                   Text(
-                    'Spawn 50 pieces of Wood',
+                    '${spawnable.type}',
                     style: TextStyle(
                       fontSize: 16,
                     ),

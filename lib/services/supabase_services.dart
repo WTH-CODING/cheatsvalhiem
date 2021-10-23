@@ -4,13 +4,14 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseServices {
   static Future getSpawnablesFromDB() async {
-    PostgrestResponse response =
-        await Supabase.instance.client.from('spawnables').select().order("id").execute();
-    List<Spawnable> spawnables = response.data
-        .map<Spawnable>((spawnable) {
-          return  Spawnable.fromJson(spawnable);
-        })
-        .toList();
-    print(spawnables.length);
+    PostgrestResponse response = await Supabase.instance.client
+        .from('spawnables')
+        .select()
+        .order("id", ascending: true)
+        .execute();
+    List<Spawnable> spawnables = response.data.map<Spawnable>((spawnable) {
+      return Spawnable.fromJson(spawnable);
+    }).toList();
+    return spawnables;
   }
 }
