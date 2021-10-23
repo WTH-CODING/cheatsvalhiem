@@ -15,17 +15,17 @@ class Spawnable {
 
   factory Spawnable.fromJson(Map<dynamic, dynamic> json) => Spawnable(
         id: json["id"],
-        itemName: json["itemName"],
+        itemName: json["item"],
         quantity: json["quantity"],
         type: json["type"],
-        criticalItem: json["criticalItem"],
+        criticalItem: json["flag"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "itemName": itemName,
+        "item": itemName,
         "quantity": quantity,
         "type": type,
-        "criticalItem": criticalItem,
+        "flag": criticalItem,
       };
 }

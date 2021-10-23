@@ -1,3 +1,4 @@
+import 'package:cheatsvalhiem/services/supabase_services.dart';
 import 'package:cheatsvalhiem/widgets/cheat_card.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,11 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await SupabaseServices.getSpawnablesFromDB();
+        },
+      ),
       body: SafeArea(
         child: Column(
           children: [

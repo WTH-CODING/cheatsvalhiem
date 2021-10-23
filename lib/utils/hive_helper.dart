@@ -17,7 +17,7 @@ class HiveHelper {
 
   static Future<List<Spawnable>> getAllSpawnables() async {
     Box box = await openSpawnablesBox();
-    Iterable<dynamic> data = await box.values;
+    Iterable<dynamic> data = box.values;
     List<Spawnable> spawnables = data
         .map<Spawnable>((spawnable) => Spawnable.fromJson(spawnable))
         .toList();

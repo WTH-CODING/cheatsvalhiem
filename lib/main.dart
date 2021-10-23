@@ -1,7 +1,17 @@
 import 'package:cheatsvalhiem/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://tpkupoxtvkyxwfjwqdxn.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNDk5NDAzNywiZXhwIjoxOTUwNTcwMDM3fQ.EFFRFD4Y5fib4P1Q7OrXwLT654Jwb04ib-krP2J0aGw',
+    debug: true,
+  );
+
   runApp(const MyApp());
 }
 
