@@ -46,7 +46,13 @@ class CheatCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(Icons.copy_rounded),
+              Row(
+                children: [
+                  Icon(Icons.star_border_rounded),
+                  SizedBox(width: 8),
+                  Icon(Icons.copy_rounded),
+                ],
+              ),
             ],
           ),
         ),
