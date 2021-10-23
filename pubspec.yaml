@@ -10,8 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.2
+
+  animated_text_kit: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -25,9 +26,9 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Norse
+      fonts:
+        - asset: assets/fonts/norse/Norse.otf
+        - asset: assets/fonts/norse/Norsebold.otf
+          weight: 900

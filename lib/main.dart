@@ -1,4 +1,4 @@
-import 'package:cheatsvalhiem/landing_screen.dart';
+import 'package:cheatsvalhiem/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: const LandingScreen(),
+      home: const SplashScreen(),
     );
   }
 }
