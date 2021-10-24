@@ -48,11 +48,19 @@ class CheatCard extends StatelessWidget {
                   //     fontSize: 16,
                   //   ),
                   // ),
-
-                  Text(
-                    '${spawnable.type}',
-                    style: TextStyle(
-                      fontSize: 16,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.redAccent,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        '${spawnable.type}',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
                 ],

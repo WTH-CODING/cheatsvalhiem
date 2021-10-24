@@ -32,12 +32,14 @@ class _LandingScreenState extends State<LandingScreen> {
 
   searchCheats() {
     spawnables2 = spawnables;
-    spawnables2 = spawnables2
-        .where((element) => element.itemName.contains(_controller.text))
-        .toList();
+    // spawnables2 = spawnables2
+    //     .where((element) => element.itemName.contains(_controller.text))
+    //     .toList();
     setState(() {
       spawnables2 = spawnables2
-          .where((element) => element.itemName.contains(_controller.text))
+          .where((element) => element.itemName
+              .toLowerCase()
+              .contains(_controller.text.toLowerCase()))
           .toList();
     });
   }
@@ -87,7 +89,12 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                onPressed: () => _controller.clear(),
+                                onPressed: () {
+                                  _controller.clear();
+                                  setState(() {
+                                    spawnables2 = spawnables;
+                                  });
+                                },
                                 icon: Icon(Icons.clear),
                               ),
                               IconButton(
@@ -102,6 +109,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       ),
                     ),
                   ),
+                  TagsBarWidget(),
                   Flexible(
                     child: Container(
                       child: ListView.builder(
@@ -116,6 +124,76 @@ class _LandingScreenState extends State<LandingScreen> {
                   ),
                 ],
               ),
+      ),
+    );
+  }
+}
+
+class TagsBarWidget extends StatelessWidget {
+  const TagsBarWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Container(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SizedBox(width: 16),
+              TagsWidget(tag: 'Items'),
+              TagsWidget(tag: 'Armour'),
+              TagsWidget(tag: 'Ammo'),
+              TagsWidget(tag: 'Weapon'),
+              TagsWidget(tag: 'Tool'),
+              TagsWidget(tag: 'Trinket'),
+              TagsWidget(tag: 'Enemy'),
+              TagsWidget(tag: 'Boss'),
+              TagsWidget(tag: 'Food'),
+              TagsWidget(tag: 'Potion/Mead'),
+              TagsWidget(tag: 'Vehicle/Cart'),
+              TagsWidget(tag: 'NPC'),
+              TagsWidget(tag: 'Trophy'),
+              TagsWidget(tag: 'Spawner'),
+              TagsWidget(tag: 'Misc'),
+              SizedBox(width: 16),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TagsWidget extends StatelessWidget {
+  const TagsWidget({
+    required this.tag,
+    Key? key,
+  }) : super(key: key);
+
+  final String tag;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.redAccent,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Text(
+            '$tag',
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ),
       ),
     );
   }
