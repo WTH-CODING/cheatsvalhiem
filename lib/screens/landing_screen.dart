@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:cheatsvalhiem/models/spawnable_model.dart';
 import 'package:cheatsvalhiem/services/supabase_services.dart';
 import 'package:cheatsvalhiem/widgets/cheat_card.dart';
@@ -13,10 +15,12 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   List<Spawnable> spawnables = [];
   List<Spawnable> spawnables2 = [];
+  List<bool> toggleList = List.generate(16, (index) => false);
   @override
   initState() {
     super.initState();
     getInitalData();
+    toggleList[0] = true;
   }
 
   getInitalData() async {
@@ -32,9 +36,6 @@ class _LandingScreenState extends State<LandingScreen> {
 
   searchCheats() {
     spawnables2 = spawnables;
-    // spawnables2 = spawnables2
-    //     .where((element) => element.itemName.contains(_controller.text))
-    //     .toList();
     setState(() {
       spawnables2 = spawnables2
           .where((element) => element.itemName
@@ -49,11 +50,6 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await SupabaseServices.getSpawnablesFromDB();
-        },
-      ),
       body: SafeArea(
         child: loading
             ? Center(
@@ -127,70 +123,68 @@ class _LandingScreenState extends State<LandingScreen> {
       ),
     );
   }
-}
 
-class TagsBarWidget extends StatelessWidget {
-  const TagsBarWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  TagsBarWidget() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: Container(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SizedBox(width: 16),
-              TagsWidget(tag: 'Items'),
-              TagsWidget(tag: 'Armour'),
-              TagsWidget(tag: 'Ammo'),
-              TagsWidget(tag: 'Weapon'),
-              TagsWidget(tag: 'Tool'),
-              TagsWidget(tag: 'Trinket'),
-              TagsWidget(tag: 'Enemy'),
-              TagsWidget(tag: 'Boss'),
-              TagsWidget(tag: 'Food'),
-              TagsWidget(tag: 'Potion/Mead'),
-              TagsWidget(tag: 'Vehicle/Cart'),
-              TagsWidget(tag: 'NPC'),
-              TagsWidget(tag: 'Trophy'),
-              TagsWidget(tag: 'Spawner'),
-              TagsWidget(tag: 'Misc'),
-              SizedBox(width: 16),
-            ],
-          ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            SizedBox(width: 16),
+            TagsWidget('All', 0),
+            TagsWidget('Items', 1),
+            TagsWidget('Armor', 2),
+            TagsWidget('Ammo', 3),
+            TagsWidget('Weapon', 4),
+            TagsWidget('Tool', 5),
+            TagsWidget('Trinket', 6),
+            TagsWidget('Enemy', 7),
+            TagsWidget('Boss', 8),
+            TagsWidget('Food', 9),
+            TagsWidget('Potion/Mead', 10),
+            TagsWidget('Vehicle/Cart', 11),
+            TagsWidget('NPC', 12),
+            TagsWidget('Trophy', 13),
+            TagsWidget('Spawner', 14),
+            TagsWidget('Misc', 15),
+            SizedBox(width: 16),
+          ],
         ),
       ),
     );
   }
-}
 
-class TagsWidget extends StatelessWidget {
-  const TagsWidget({
-    required this.tag,
-    Key? key,
-  }) : super(key: key);
-
-  final String tag;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.redAccent,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Text(
-            '$tag',
-            style: TextStyle(
-              fontSize: 16,
+  TagsWidget(String tag, int index) {
+    return GestureDetector(
+      onTap: () {
+        if (index == 0) {
+          spawnables2 = spawnables;
+        } else {
+          spawnables2 =
+              spawnables.where((element) => element.type == tag).toList();
+        }
+        setState(() {
+          toggleList.clear();
+          toggleList = List.generate(16, (index) => false);
+          toggleList[index] = true;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: toggleList[index]
+                ? Colors.redAccent.withOpacity(0.8)
+                : Colors.black.withOpacity(0.9),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
+            child: Text(
+              '$tag',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, color: Colors.white),
             ),
           ),
         ),
