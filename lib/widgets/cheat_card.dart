@@ -1,10 +1,15 @@
 import 'package:cheatsvalhiem/models/spawnable_model.dart';
 import 'package:flutter/material.dart';
 
-class CheatCard extends StatelessWidget {
+class CheatCard extends StatefulWidget {
   final Spawnable spawnable;
   const CheatCard({Key? key, required this.spawnable}) : super(key: key);
 
+  @override
+  State<CheatCard> createState() => _CheatCardState();
+}
+
+class _CheatCardState extends State<CheatCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +28,7 @@ class CheatCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    spawnable.itemName,
+                    widget.spawnable.itemName,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -31,7 +36,7 @@ class CheatCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Spawn ${spawnable.itemName} ${spawnable.quantity}',
+                    'Spawn ${widget.spawnable.itemName} ${widget.spawnable.quantity}',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
@@ -42,23 +47,21 @@ class CheatCard extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  // Text(
-                  //   'Spawns ${spawnable.quantity} ${spawnable.quantity > 1?"pieces":"piece"} of ${spawnable.itemName}',
-                  //   style: TextStyle(
-                  //     fontSize: 16,
-                  //   ),
-                  // ),
                   Container(
+                    height: 22,
                     decoration: BoxDecoration(
-                      color: Colors.redAccent,
-                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.redAccent.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(
-                        '${spawnable.type}',
-                        style: TextStyle(
-                          fontSize: 16,
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          '${widget.spawnable.type}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
